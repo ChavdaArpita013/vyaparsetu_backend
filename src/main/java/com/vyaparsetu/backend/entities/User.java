@@ -16,7 +16,7 @@ public class User {
     private Long id;
 
     private String userName;
-
+    @Column(name = "custom_user_id", length = 255 , unique = true)
     private String userId;
 
     private String password;
@@ -26,6 +26,8 @@ public class User {
     private Long mobileNo;
 
     private Long tpin;
+
+    private Double totalAvailableFunds;
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<BankDetails> bankAccounts = new ArrayList<>();

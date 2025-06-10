@@ -17,7 +17,7 @@ public class Portfolios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id" , referencedColumnName = "id")
     private User user;
     @OneToMany(mappedBy = "portfolio" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<StockHoldings> holdings = new ArrayList<>();

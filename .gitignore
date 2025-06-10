@@ -1,6 +1,7 @@
 HELP.md
-pom.xml
-application.yml
+
+# Application specific files
+**/application.yml
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

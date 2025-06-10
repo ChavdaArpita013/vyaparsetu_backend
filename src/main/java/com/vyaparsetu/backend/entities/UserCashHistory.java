@@ -5,8 +5,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Data
+@Entity
 public class UserCashHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,8 @@ public class UserCashHistory {
 
     private LocalDateTime time;
     private Double amount;
-    private String type; //cash added r withdrawn
+    private String type; //cash added or withdrawn
+    private String description;
     @ManyToOne
     private User user;
 }

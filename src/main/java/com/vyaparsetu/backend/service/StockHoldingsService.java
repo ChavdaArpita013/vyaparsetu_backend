@@ -10,10 +10,12 @@ import com.vyaparsetu.backend.repository.TransactionsRepository;
 import com.vyaparsetu.backend.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Slf4j
+@Service
 public class StockHoldingsService {
     @Autowired
     private UserRepository userRepository;
@@ -28,9 +30,9 @@ public class StockHoldingsService {
 
     public boolean addStockHoldings(StockHoldings holdings , String userName){
         try {
-            Portfolios portfolio = portfolioRepository.findUserByUserName(userName);
-            User user = userRepository.findByUserName(userName);
 
+            User user = userRepository.findByUserName(userName);
+            Portfolios portfolio = portfolioRepository.findByUser(user);
             if(portfolio == null){
                 portfolio = new Portfolios();
                 portfolio.setUser(user);
@@ -68,7 +70,7 @@ public class StockHoldingsService {
 
     public boolean sellStockHoldings(StockHoldings holdings , String userName){
         try {
-            Portfolios portfolios = portfolioRepository.findUserByUserName(userName);
+            Portfolios portfolios = portfolioRepository.findByUser_UserName(userName);
             User user = userRepository.findByUserName(userName);
             portfolios.getHoldings().remove(holdings);
 

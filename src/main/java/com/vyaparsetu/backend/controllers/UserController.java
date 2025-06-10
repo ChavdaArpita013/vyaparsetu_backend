@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> createDeMate(User user){
+    public ResponseEntity<?> createDeMate(@RequestBody User user){
         boolean deMateAccount = userService.createDeMateAccount(user);
         //send mail with username password tpin
         if(deMateAccount)return new ResponseEntity<>(HttpStatus.OK);
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(String userId , String password){
+    public ResponseEntity<?> loginUser(@RequestBody String userId , String password){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
         boolean login = userService.loginUser(userName, userId, password);
