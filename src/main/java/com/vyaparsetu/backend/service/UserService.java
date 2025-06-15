@@ -46,6 +46,7 @@ public class UserService {
         throw new RuntimeException("Exhausted all possible user IDs");
     }
 
+
     public boolean createDeMateAccount(User user){
         try {
             String userId = generateUserId();
@@ -57,7 +58,7 @@ public class UserService {
             portfolioRepository.save(portfolios);
 
             if(save != null){
-               emailService.sendMail(user.getEmail() , user.getUserName());
+               emailService.sendMail(user.getEmail() , user.getUserName() , user.getUserId() , user.getPassword());
                return true;
             }
 

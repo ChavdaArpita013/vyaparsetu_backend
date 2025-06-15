@@ -12,31 +12,28 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
-    public String getUserId(){
-        return "ASC020";
-    }
 
-    public String getPassword(){
-        return "dshguydsda";
-    }
-
-    public Integer getTpin(){
-        return 398768;
-    }
-
-    public void sendMail(String to , String userName){
+    public void sendMail(String to , String userName , String userId , String password){
         try {
-            String userId = getUserId();
-            String password = getPassword();
-            Integer tpin = getTpin();
+
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(to);
             simpleMailMessage.setSubject("VyaparSetu Account Credentials");
-            simpleMailMessage.setText("Hello" + userName + ",");
-            simpleMailMessage.setText("Here is You Vyaparsetu userId" + userId + "and password" + password);
-            simpleMailMessage.setText("Also here is you tpin which will be needed to sell any stock " + tpin );
-            simpleMailMessage.setText("we request you not to share this credentials with anyone ");
-            simpleMailMessage.setText("Regrads" + "team vyaparsetu");
+            StringBuilder message = new StringBuilder();
+            message.append("Dear ").append(userName).append(",\n\n");
+            message.append("Welcome to VyaparSetu!\n\n");
+            message.append("Your demat account has been successfully created. Below are your login credentials:\n\n");
+            message.append("User ID: ").append(userId).append("\n");
+            message.append("Password: ").append(password).append("\n\n");
+            message.append("For your security, we strongly recommend that you change your password upon first login.\n");
+            message.append("Please keep these credentials confidential and do not share them with anyone.\n\n");
+            message.append("If you have any questions or require assistance, feel free to reach out to our support team.\n\n");
+            message.append("Thank you for choosing VyaparSetu.\n\n");
+            message.append("Warm regards,\n");
+            message.append("Team VyaparSetu");
+
+            simpleMailMessage.setText(message.toString());
+
 
         } catch (Exception e) {
             log.info("Error sending mail for new user credentials (new demate account)" , e);
